@@ -1,0 +1,63 @@
+ <div class="container"> 
+  <div class="jumbotron"> 
+  <img src="/assets/img/black-burger.jpg" alt="Burger">
+    <h1> <strong>Eat-Da-Burger!</strong> </h1>
+  </div>
+
+  {{!-- burger list before being eaten --}}
+  <div class="row">
+    <div class="col-md-4 col-md-offset-1">
+      <div class="panel-panel default">
+        <ul class="list-group">
+        {{#each burgers}}
+          {{#unless this.devoured}}
+          <li class="list-group-item">
+            <div class="input-group">
+              <p class="lead"> {{this.burger_name}} </p>
+              <span class="input-group-btn">
+                <form method="POST" action="burgers/update/{{this.id}}?_method=PUT">
+                  <input type="hidden" name="devoured" value="true">
+                  <button class="btn btn-default btn-lg" type="submit"> DEVOUR IT! </button>
+                </form>
+              </span>
+            </div>
+          </li>
+          {{/unless}}
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+
+
+    {{!-- burger list after being eaten --}}
+  <div class="row">
+    <div class="col-md-4 col-md-offset-2">
+      <div class="panel panel-default">
+        <ul class="list-group">
+        {{#each burgers}}
+          {{#if this.devoured}}
+          <li class="list-group-item">
+            <p class="lead">{{this.burger_name}} </p>
+          </li>
+          {{/if}}
+        {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-10 col-md-offset-1">
+    <p class="detials"> Create a new burger so you can devour it! Click add burger when done.</p>
+
+    {{!-- section to add burgers --}}
+    <form class="create-update-form" action="burgers/create" method="POST">
+
+      <div class="form-group">
+        <textarea class="form-control input-lg" type="text" name="burger_name" rows="3"> </textarea>
+      </div>
+
+      <button class="btn btn-default btn-lg" type="submit">Add Burger!</button>
+    </form>
+  </div>
+</div>
+
